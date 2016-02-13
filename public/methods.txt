@@ -1,0 +1,39 @@
+getLast <- getByIndex || getFirst + getNext * n
+getFirst <- getByIndex
+getNext <- getByIndex
+getPrev <- getByIndex
+getByIndex <- getFirst + getNext * n
+
+insertAfter <- insertBefore + getNext || insertByIndex
+insertBefore <- insertAfter + getPrev || insertByIndex
+insertByIndex <- getByIndex + insertAfter
+insertAtEnd <- getLast + insertAfter
+insertAtStart <- getFirst + insertBefore
+insertByIndex <- n * insertAtEnd
+
+removeBetweenNodes <- n * (getNext + insertAfter) || each + n * insertAtEnd
+removeNode <- getNext + getPrev + removeBetweenNodes || getFirst + n * (getNext + insertAtEnd)
+removeByIndex <- getByIndex + removeNode
+removeLast <- getLast + removeNode
+removeFirst <- getFirst + removeNode
+
+unorderedEach <- each
+contains <- unorderedEach
+count <- unorderedEach
+contains <- count
+find <- each
+findAny <- unorderedEach
+findAny <- find
+
+pop <- getLast + removeLast
+
+sum <- unorderedEach
+maximum <- unorderedEach
+
+sum <- reduceComInv
+maximum <- reduceCom
+reduceComInv <- reduceCom
+reduceComInv <- reduceInv
+reduceCom <- reduce
+reduceInv <- reduce
+reduce <- each

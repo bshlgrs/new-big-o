@@ -1,0 +1,50 @@
+MethodsFile = body: (MethodDeclaration _)* {
+  return body.map((x) => x[0]);
+}
+
+MethodDeclaration = head: Variable _ "<-" _ expr: WholeExpression {
+    return [head, expr];
+}
+
+WholeExpression
+  = head:Expression tail:(_ ("||") _ Expression)* {
+  if (tail.length) {
+        tail = tail.map((x) => x[3]);
+      tail.unshift(head);
+        return ["||", tail];
+    } else {
+        return head;
+    }
+}
+
+Expression
+  = head:Term tail:(_ ("+") _ Term)* {
+  if (tail.length) {
+        tail = tail.map((x) => x[3]);
+      tail.unshift(head);
+        return ["+", tail];
+    } else {
+        return head;
+    }
+}
+
+Term
+  = head:Factor tail:(_ ("*" / "/") _ Factor)* {
+  if (tail.length) {
+        tail = tail.map((x) => x[3]);
+      tail.unshift(head);
+        return ["*", tail];
+    } else {
+        return head;
+    }
+  }
+
+Factor
+  = "(" _ expr:Expression _ ")" { return expr; }
+  / Variable
+
+Variable "variable"
+  = [A-Za-z]+ { return text(); }
+
+_ "whitespace"
+  = [ \t\r\n]*

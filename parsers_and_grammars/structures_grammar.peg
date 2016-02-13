@@ -1,0 +1,27 @@
+StructuresFile = stuff: (Structure _)* {
+  var resultObject = {};
+  stuff.forEach((x) => {
+    resultObject[x[0][0]] = x[0][1];
+  });
+  return resultObject;
+}
+
+Structure =
+  "structure" _ name: Name _ "{" _ methods:(MethodSpeedDecl _)* "}" {
+    var methodTimes = {};
+    methods.forEach((x) => {
+      methodTimes[x[0][0]] = x[0][1];
+    });
+    return [name, methodTimes];
+  }
+
+MethodSpeedDecl
+  = name: Name _ ":" _ speed: Speed { return [name, speed]; }
+
+Name "name"
+  = [a-zA-Z]+ { return text(); }
+
+Speed = "n" / "log(n)" / "1"
+
+_ "whitespace"
+  = [ \t\n\r]*

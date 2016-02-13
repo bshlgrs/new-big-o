@@ -1,0 +1,7 @@
+adt Stack {
+  push, pop
+}
+
+adt SumStack {
+  push, pop, sum
+}
