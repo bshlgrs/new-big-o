@@ -46,9 +46,9 @@ var App = React.createClass({
   }
 });
 
-$.get("/public/methods.txt", function (data) {
+$.get("public/methods.txt", function (data) {
   var methodsText = data;
-  $.get("/public/structures.txt", function (data) {
+  $.get("public/structures.txt", function (data) {
     var structuresText = data;
     ReactDOM.render(
       <App methodsText={methodsText} structuresText={structuresText} />,
