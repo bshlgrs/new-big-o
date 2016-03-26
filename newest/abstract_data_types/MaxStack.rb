@@ -1,8 +1,15 @@
-class MaxStack < MagicADT
-  magic :push!
-  magic :pop!
-  magic_define :peek(length: :constant, get: :constant) do |idx|
-    get(length - idx)
+class MaxStack < MagicAdt
+  auto_implement :push!
+  auto_implement :pop!
+
+  auto_implement :length
+  auto_implement :[]
+
+  auto_implement :maximum
+
+  def peek(idx)
+    self[length - idx - 1]
   end
-  magic :maximum
+
+  finalize!
 end

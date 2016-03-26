@@ -13,6 +13,6 @@ class MagicArray < MagicDataStructure
 
   expose :[]=, :constant
 
-  magic_alias :pop!, :pop, :constant
+  make_alias :pop!, :pop, :constant
 end
 
