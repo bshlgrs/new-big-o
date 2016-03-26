@@ -19,7 +19,7 @@ MethodSpeedDecl
   = name: Name _ ":" _ speed: Speed { return [name, speed]; }
 
 Name "name"
-  = [a-zA-Z]+ { return text(); }
+  = [a-zA-Z]+[$]? { return text(); }
 
 Speed = "n" / "log(n)" / "1"
 

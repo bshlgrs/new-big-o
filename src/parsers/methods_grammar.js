@@ -42,7 +42,7 @@ MethodsParser = (function() {
         peg$c1 = "<-",
         peg$c2 = { type: "literal", value: "<-", description: "\"<-\"" },
         peg$c3 = function(head, expr) {
-            return [head, expr];
+            return { lhs: head, rhs: expr, originalText: text() };
         },
         peg$c4 = "||",
         peg$c5 = { type: "literal", value: "||", description: "\"||\"" },
@@ -87,10 +87,12 @@ MethodsParser = (function() {
         peg$c20 = { type: "other", description: "variable" },
         peg$c21 = /^[A-Za-z]/,
         peg$c22 = { type: "class", value: "[A-Za-z]", description: "[A-Za-z]" },
-        peg$c23 = function() { return text(); },
-        peg$c24 = { type: "other", description: "whitespace" },
-        peg$c25 = /^[ \t\r\n]/,
-        peg$c26 = { type: "class", value: "[ \\t\\r\\n]", description: "[ \\t\\r\\n]" },
+        peg$c23 = /^[$]/,
+        peg$c24 = { type: "class", value: "[$]", description: "[$]" },
+        peg$c25 = function() { return text(); },
+        peg$c26 = { type: "other", description: "whitespace" },
+        peg$c27 = /^[ \t\r\n]/,
+        peg$c28 = { type: "class", value: "[ \\t\\r\\n]", description: "[ \\t\\r\\n]" },
 
         peg$currPos          = 0,
         peg$savedPos         = 0,
@@ -749,10 +751,28 @@ MethodsParser = (function() {
         s1 = peg$FAILED;
       }
       if (s1 !== peg$FAILED) {
-        peg$savedPos = s0;
-        s1 = peg$c23();
+        if (peg$c23.test(input.charAt(peg$currPos))) {
+          s2 = input.charAt(peg$currPos);
+          peg$currPos++;
+        } else {
+          s2 = peg$FAILED;
+          if (peg$silentFails === 0) { peg$fail(peg$c24); }
+        }
+        if (s2 === peg$FAILED) {
+          s2 = null;
+        }
+        if (s2 !== peg$FAILED) {
+          peg$savedPos = s0;
+          s1 = peg$c25();
+          s0 = s1;
+        } else {
+          peg$currPos = s0;
+          s0 = peg$FAILED;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$FAILED;
       }
-      s0 = s1;
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
@@ -767,27 +787,27 @@ MethodsParser = (function() {
 
       peg$silentFails++;
       s0 = [];
-      if (peg$c25.test(input.charAt(peg$currPos))) {
+      if (peg$c27.test(input.charAt(peg$currPos))) {
         s1 = input.charAt(peg$currPos);
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c26); }
+        if (peg$silentFails === 0) { peg$fail(peg$c28); }
       }
       while (s1 !== peg$FAILED) {
         s0.push(s1);
-        if (peg$c25.test(input.charAt(peg$currPos))) {
+        if (peg$c27.test(input.charAt(peg$currPos))) {
           s1 = input.charAt(peg$currPos);
           peg$currPos++;
         } else {
           s1 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c26); }
+          if (peg$silentFails === 0) { peg$fail(peg$c28); }
         }
       }
       peg$silentFails--;
       if (s0 === peg$FAILED) {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c24); }
+        if (peg$silentFails === 0) { peg$fail(peg$c26); }
       }
 
       return s0;

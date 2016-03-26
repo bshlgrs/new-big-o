@@ -1,44 +1,53 @@
 structure Array {
   getByIndex: 1
-  insertAtEnd: 1
-  removeLast: 1
+  insertAtEnd$: 1
+  removeLast$: 1
+  update$: 1
   each: n
 }
 
 structure TwoArrayQueue {
   getByIndex: 1
-  insertAtEnd: 1
-  removeFirst: 1
+  insertAtEnd$: 1
+  removeFirst$: 1
   each: n
-  removeLast: 1
+  removeLast$: 1
+  update$: 1
 }
 
 structure FrequencyHashMap {
   count: 1
-  insertByIndex: 1
+  insertByIndex$: 1
   unorderedEach: n
-  removeNode: 1
+  removeNode$: 1
+  update$: 1
 }
 
 structure InvMonoidMemoizer {
   sum: 1
-  insertByIndex: 1
-  removeNode: 1
+  insertByIndex$: 1
+  removeNode$: 1
+  update$: 1
 }
 
 structure ComMonoidMemoizer {
   reduceCom: 1
-  insertByIndex: 1
+  insertByIndex$: 1
+}
+
+structure StackMemoizer {
+  insertAtEnd$: 1
+  removeLast$: 1
+  reduce: 1
 }
 
 structure BalancedBinaryTree {
-  getFirst: 1
-  getLast: 1
   getByIndex: log(n)
   getNext: 1
   getPrev: 1
-  insertAfter: 1
-  insertBefore: 1
-  removeBetweenNodes: 1
+  insertAfter$: 1
+  insertBefore$: 1
+  removeBetweenNodes$: 1
   each: n
+  update$: 1
 }

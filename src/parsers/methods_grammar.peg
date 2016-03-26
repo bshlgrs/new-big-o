@@ -3,7 +3,7 @@ MethodsFile = body: (MethodDeclaration _)* {
 }
 
 MethodDeclaration = head: Variable _ "<-" _ expr: WholeExpression {
-    return [head, expr];
+    return { lhs: head, rhs: expr, originalText: text() };
 }
 
 WholeExpression
@@ -44,7 +44,7 @@ Factor
   / Variable
 
 Variable "variable"
-  = [A-Za-z]+ { return text(); }
+  = [A-Za-z]+[$]? { return text(); }
 
 _ "whitespace"
   = [ \t\r\n]*
